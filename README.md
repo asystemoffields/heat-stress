@@ -8,7 +8,7 @@ no login, nothing stored or sent anywhere.
 > weather forecast (the globe/longwave terms are modeled, not measured). Follow your national
 > weather service and local authorities.
 
-**Live:** _(deploy link TBD)_
+**Live:** https://asystemoffields.github.io/heat-stress/
 
 ## Why this exists
 
