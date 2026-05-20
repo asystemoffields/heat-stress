@@ -188,7 +188,21 @@ function selectResult(i) {
 function openHelp() { $('help-modal').classList.remove('hidden'); $('help-close').focus(); }
 function closeHelp() { $('help-modal').classList.add('hidden'); $('btn-help').focus(); }
 
+function initTheme() {
+  const THEMES = ['auto', 'light', 'dark'];
+  const btn = $('btn-theme');
+  let pref; try { pref = localStorage.getItem('sciproj-theme') || 'auto'; } catch (e) { pref = 'auto'; }
+  const apply = () => {
+    if (pref === 'auto') delete document.documentElement.dataset.theme;
+    else document.documentElement.dataset.theme = pref;
+    if (btn) { btn.textContent = pref === 'auto' ? '◐' : pref === 'light' ? '☀' : '☾'; btn.title = `Theme: ${pref}`; btn.setAttribute('aria-label', `Theme: ${pref}. Click to change.`); }
+  };
+  if (btn) btn.addEventListener('click', () => { pref = THEMES[(THEMES.indexOf(pref) + 1) % THEMES.length]; try { localStorage.setItem('sciproj-theme', pref); } catch (e) { /* private mode */ } apply(); });
+  apply();
+}
+
 function init() {
+  initTheme();
   const q = $('q');
   q.addEventListener('input', onSearchInput);
   q.addEventListener('keydown', (e) => {

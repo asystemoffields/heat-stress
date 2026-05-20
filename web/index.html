@@ -11,6 +11,7 @@
   <meta property="og:description" content="Free global Wet-Bulb Globe Temperature (WBGT) + heat-index forecast with activity guidance. Planning/education only — not an official heat warning." />
   <meta property="og:url" content="https://asystemoffields.github.io/heat-stress/" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌡️</text></svg>" />
+  <script>try{var t=localStorage.getItem('sciproj-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}</script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -20,6 +21,7 @@
       <span class="subtitle">Global WBGT &amp; heat-index forecast · activity guidance</span>
     </div>
     <span class="spacer"></span>
+    <button class="btn sm" id="btn-theme" title="Theme" aria-label="Theme: auto. Click to change.">◐</button>
     <button class="btn sm" id="unit-toggle" title="Switch units" aria-label="Switch temperature units (°C / °F)">°C</button>
     <button class="btn sm" id="btn-help" title="How this works" aria-label="How this works (help)">?</button>
   </header>
