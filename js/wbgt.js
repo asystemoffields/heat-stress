@@ -14,7 +14,9 @@ const C = {
 };
 C.rair = C.rgas / C.mair;
 C.Pr = C.cp / (C.cp + 1.25 * C.rair);
-const HORIZON = Math.cos(89.5 * Math.PI / 180); // ~0.0087
+const HORIZON = Math.cos(89.5 * Math.PI / 180); // ~0.0087 — below this the sun is down (f=0)
+const COSZ_SLANT_FLOOR = Math.cos(80 * Math.PI / 180); // ~0.174 — cap the low-sun beam-slant
+// projection so the globe/wick direct-beam terms can't blow up just above the horizon.
 
 // --- psychrometrics / properties (T in K, P in Pa) ---
 function esat(T, P) {
@@ -76,7 +78,7 @@ function directFraction(rsds, diffuse, cosz) {
 // SYNTHESIZED downwelling/upwelling longwave (Open-Meteo lacks it). The accuracy caveat.
 // Longwave depends only on air temp, humidity, and cloud — same whether in sun or shade.
 export function synthLongwave(TaK, eaPa, cloudPct) {
-  const epsCs = 0.23 + 0.484 * Math.sqrt((eaPa / 100) / TaK); // Brunt clear-sky emissivity
+  const epsCs = 0.52 + 0.065 * Math.sqrt(eaPa / 100); // Brunt clear-sky emissivity (ea in hPa)
   const cf = cloudPct / 100;
   const eps = epsCs * (1 - cf * cf) + cf * cf;
   const rlds = eps * C.stefanb * Math.pow(TaK, 4);
@@ -116,7 +118,7 @@ export function computeWBGT(inp) {
     ? 611.2 * Math.exp(17.62 * inp.dewpoint / (243.12 + inp.dewpoint))
     : (inp.RH / 100) * esat(Ta, P);
   const w2 = wind2m(inp.wind10, inp.cosz, inp.rsds);
-  const coszda = Math.max(inp.cosz, HORIZON); // safe for 1/coszda and acos; f=0 below horizon
+  const coszda = Math.max(inp.cosz, COSZ_SLANT_FLOOR); // floored so low-sun beam terms stay finite
   const { rlds, rlus } = synthLongwave(Ta, ea, inp.cloud);
 
   // Sun-exposed globe & natural wet-bulb (full shortwave load).
