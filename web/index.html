@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Heat-Stress Index — global WBGT forecast</title>
+  <meta name="description" content="Free global heat-stress forecast: Wet-Bulb Globe Temperature (WBGT), heat index, and activity guidance for any location. Planning/education only — not an official heat warning." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="titles">
+      <span class="title"><b>Heat-Stress</b> Index</span>
+      <span class="subtitle">Global WBGT &amp; heat-index forecast · activity guidance</span>
+    </div>
+    <span class="spacer"></span>
+    <button class="btn sm" id="unit-toggle" title="Switch units">°C</button>
+    <button class="btn sm" id="btn-help" title="How this works">?</button>
+  </header>
+
+  <div class="searchbar">
+    <div class="searchwrap">
+      <input id="q" type="text" autocomplete="off" placeholder="Search a city or place…" />
+      <div id="results" class="results hidden"></div>
+    </div>
+    <button class="btn sm" id="btn-geo" title="Use my location">📍 My location</button>
+    <span id="loc-label" class="loc-label"></span>
+  </div>
+
+  <div class="disclaimer">
+    ⚠ <b>Estimated</b> from forecast weather — not a measured reading and <b>not an official heat warning</b>.
+    Follow local authorities; individual heat tolerance varies. <a href="#" id="why-link">Why &amp; how →</a>
+  </div>
+
+  <main id="main">
+    <div id="placeholder" class="placeholder">Search a place or use your location to see the heat-stress forecast.</div>
+
+    <section id="current" class="card hidden">
+      <div class="cur-main">
+        <div class="cur-wbgt">
+          <div class="lab">WBGT (in sun)</div>
+          <div class="val" id="cur-wbgt">—</div>
+          <div class="flag" id="cur-flag">—</div>
+        </div>
+        <div class="cur-advice" id="cur-advice"></div>
+      </div>
+      <div class="cur-grid">
+        <div class="kv"><span>air temp</span><b id="cur-ta">—</b></div>
+        <div class="kv"><span>feels like</span><b id="cur-feels">—</b></div>
+        <div class="kv"><span>heat index</span><b id="cur-hi">—</b></div>
+        <div class="kv"><span>humidity</span><b id="cur-rh">—</b></div>
+        <div class="kv"><span>wind</span><b id="cur-wind">—</b></div>
+        <div class="kv"><span>WBGT in shade</span><b id="cur-shade">—</b></div>
+      </div>
+    </section>
+
+    <section id="hourly" class="block hidden">
+      <h3>Next 24 hours <span class="hint" id="hourly-sub"></span></h3>
+      <div class="strip" id="hstrip"></div>
+    </section>
+
+    <section id="daily" class="block hidden">
+      <h3>7-day outlook <span class="hint">peak daytime WBGT</span></h3>
+      <div class="days" id="ddays"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Weather by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>
+      (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>),
+      geocoding by GeoNames. Guidance from US NWS, DoD/HPRC &amp; NIOSH (public domain). WBGT via Kong &amp; Huber (2024).</span>
+    <span class="spacer"></span>
+    <span>MIT · <a id="repo-link" href="#" target="_blank" rel="noopener">source</a></span>
+  </footer>
+
+  <div id="help-modal" class="modal hidden">
+    <div class="modal-card">
+      <button class="x" id="help-close">×</button>
+      <h2>What this shows</h2>
+      <p><b>WBGT (Wet-Bulb Globe Temperature)</b> is the heat-stress measure used by militaries, athletics,
+        and occupational-safety bodies, because it accounts for humidity, sun, and wind — not just air
+        temperature. This tool estimates WBGT and the NWS Heat Index anywhere on Earth from a free weather
+        forecast, and maps it to plain-language activity guidance.</p>
+      <ul>
+        <li><b>WBGT (in sun)</b> assumes direct sun on open ground; <b>in shade</b> is the lower value out of direct sun.</li>
+        <li>Flags (White→Black) follow US military WBGT categories; the Heat Index uses NWS health categories.</li>
+        <li>Everything is computed in your browser. No login, nothing stored or sent anywhere.</li>
+      </ul>
+      <p class="warn"><b>Important:</b> values are <b>estimated</b> from forecast data — the globe/longwave terms are
+        modeled, not measured — so treat them as planning guidance, not a measured WBGT or an official heat
+        alert. Real heat stress depends on shade, wind, surface, hydration, clothing, acclimatization, age and
+        health. When in doubt, consult your national weather service and local guidance.</p>
+      <p class="hint">WBGT model: Kong &amp; Huber (2024), an analytic form of Liljegren et al. (2008).</p>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
