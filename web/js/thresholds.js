@@ -9,7 +9,7 @@ const WBGT_FLAGS = [
   { max: 29.4, name: 'Green', color: '#5fd38d', advice: 'Use discretion for intense or prolonged exertion (≈50 min work / 10 min rest).' },
   { max: 31.1, name: 'Yellow', color: '#ffd34d', advice: 'Limit intense exertion (≈30–40 min work / 20–30 min rest); hydrate, watch at-risk people.' },
   { max: 32.2, name: 'Red', color: '#ff9e57', advice: 'Curtail strenuous activity (≈20–30 min work / 30–40 min rest); seek shade.' },
-  { max: Infinity, name: 'Black', color: '#ff6b81', advice: 'Suspend strenuous outdoor activity — extreme heat-stress risk.' },
+  { max: Infinity, name: 'Black', color: '#b3122b', text: '#fff', advice: 'Suspend strenuous outdoor activity — extreme heat-stress risk.' },
 ];
 export function wbgtFlag(wbgtC) {
   return WBGT_FLAGS.find((f) => wbgtC < f.max) || WBGT_FLAGS[WBGT_FLAGS.length - 1];
